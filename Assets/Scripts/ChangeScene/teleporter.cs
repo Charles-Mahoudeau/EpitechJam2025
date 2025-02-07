@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +12,10 @@ namespace ChangeScene
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("Object collided.");
+                Debug.Log("Player entered in tp zone.");
+                DontDestroyOnLoad(other);
+                SceneManager.LoadScene(newScene);
+                other.transform.position = teleportDestination;
             }
         }
     }
