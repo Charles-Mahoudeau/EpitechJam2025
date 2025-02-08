@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ShyWall
   - PlayerBody
+  - Paintable
   layers:
   - Default
   - TransparentFX
