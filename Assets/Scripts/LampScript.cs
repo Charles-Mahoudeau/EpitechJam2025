@@ -78,7 +78,8 @@ public class LampScript : MonoBehaviour
         for (float i = - (int) (raysCount / 2); i < (int) (raysCount / 2); i++)
         {
             var origin = transform.position + transform.right * (i * precision);
-            var hasHit = Physics.Raycast(origin, transform.forward, out var hit, raysDistance);
+            var hasHit = Physics.Raycast(origin, transform.forward, out var hit, raysDistance,
+                LayerMask.GetMask("ShadowWall"));
 
             if (!hasHit || hit.collider != colliderFilter)
             {
@@ -96,9 +97,9 @@ public class LampScript : MonoBehaviour
     private void UpdateShadow()
     {
         var hasTargetHit = Physics.Raycast(transform.position, transform.forward, out var targetHit,
-            raysDistance);
+            raysDistance, LayerMask.GetMask("ShadowWall"));
         var hasGroundHit = Physics.Raycast(transform.position, - transform.up, out var groundHit, 
-            raysDistance);
+            raysDistance, LayerMask.GetMask("Ground"));
 
         _shadowActive = hasTargetHit && hasGroundHit;
         
@@ -150,7 +151,7 @@ public class LampScript : MonoBehaviour
     private void DrawShadowGizmos()
     {
         var hasTargetHit = Physics.Raycast(transform.position, transform.forward, out var targetHit,
-            raysDistance);
+            raysDistance, LayerMask.GetMask("ShadowWall"));
         
         Gizmos.color = Color.green;
 

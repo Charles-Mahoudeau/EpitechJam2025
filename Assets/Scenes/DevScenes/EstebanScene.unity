@@ -131,9 +131,9 @@ GameObject:
   - component: {fileID: 97135677}
   - component: {fileID: 97135676}
   - component: {fileID: 97135675}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: groundToDelete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -410,10 +410,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2072231529480667088, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 3579222467468307879, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.87
@@ -455,16 +451,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6162828058124468943, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
-      propertyPath: friction
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6162828058124468943, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
-      propertyPath: moveSpeed
-      value: 700
-      objectReference: {fileID: 0}
-    - target: {fileID: 6162828058124468943, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
-      propertyPath: airFriction
-      value: 0.7
+      propertyPath: jumpForce
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -489,11 +477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196564022636915635, guid: 8c8d8afc443d3d847926f384b426feb3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.08
+      value: -11.21
       objectReference: {fileID: 0}
     - target: {fileID: 9196564022636915635, guid: 8c8d8afc443d3d847926f384b426feb3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.01
+      value: 27.49
       objectReference: {fileID: 0}
     - target: {fileID: 9196564022636915635, guid: 8c8d8afc443d3d847926f384b426feb3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -542,7 +530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 99416321521259859, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 99416321521259859, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -576,10 +564,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2364322069857626537, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6123019899779868893, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_Name
       value: Teleporter_departure
@@ -603,11 +587,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4217234330959205976, guid: 276c3ebade2a003439efcf06c6a1f7a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.31300047
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 4217234330959205976, guid: 276c3ebade2a003439efcf06c6a1f7a7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4218185
+      value: 4.24
       objectReference: {fileID: 0}
     - target: {fileID: 4217234330959205976, guid: 276c3ebade2a003439efcf06c6a1f7a7, type: 3}
       propertyPath: m_LocalPosition.z
