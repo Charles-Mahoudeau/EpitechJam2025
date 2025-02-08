@@ -29,6 +29,7 @@ public class ObjectInteractScript : MonoBehaviour
 
     public void SetCanvasActive(bool active)
     {
+        _interactCanvas.transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
         _interactCanvas.SetActive(active);
     }
 

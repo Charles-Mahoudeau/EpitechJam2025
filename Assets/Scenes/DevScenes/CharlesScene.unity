@@ -827,11 +827,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3261596990950676147, guid: e0e93f9b43c074146bf39a7492bd1a2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 3261596990950676147, guid: e0e93f9b43c074146bf39a7492bd1a2e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.404
       objectReference: {fileID: 0}
     - target: {fileID: 3261596990950676147, guid: e0e93f9b43c074146bf39a7492bd1a2e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -860,6 +860,18 @@ PrefabInstance:
     - target: {fileID: 3261596990950676147, guid: e0e93f9b43c074146bf39a7492bd1a2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337259304936327502, guid: e0e93f9b43c074146bf39a7492bd1a2e, type: 3}
+      propertyPath: precision
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337259304936327502, guid: e0e93f9b43c074146bf39a7492bd1a2e, type: 3}
+      propertyPath: shadowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c8e7ce4c35dbe6c44a9e02c7f4bf74db, type: 2}
+    - target: {fileID: 5337259304936327502, guid: e0e93f9b43c074146bf39a7492bd1a2e, type: 3}
+      propertyPath: distanceShadowHeightFactor
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -999,7 +1011,7 @@ GameObject:
   - component: {fileID: 1938667349}
   - component: {fileID: 1938667348}
   - component: {fileID: 1938667347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

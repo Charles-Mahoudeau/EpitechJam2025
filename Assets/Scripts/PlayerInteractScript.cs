@@ -26,16 +26,24 @@ public class PlayerInteractScript : MonoBehaviour
     }
 
     private InputAction _interactAction;
+
+    private GameObject _currentHoldObject;
     
     private void Start()
     {
         _cache = new Dictionary<GameObject, ObjectInteractScript>();
 
         _interactAction = InputSystem.actions.FindAction("Interact");
+
+        _currentGameObject = null;
+        _currentInteractScript = null;
+        _currentHoldObject = null;
     }
     
     private void Update()
     {
+        UpdateInput();
+        
         var hasHit = Physics.Raycast(PlayerCamera.transform.position, 
             PlayerCamera.transform.forward, out var hit, range, 
             LayerMask.GetMask("Interactable"));
@@ -50,14 +58,6 @@ public class PlayerInteractScript : MonoBehaviour
             return;
         }
 
-        if (_interactAction.WasPressedThisFrame() && _currentGameObject)
-        {
-            _currentGameObject.transform.parent = transform;
-            _currentGameObject.transform.localPosition = _currentInteractScript.GetHoldPosition();
-            _currentGameObject.transform.localRotation = _currentInteractScript.GetHoldRotation();
-            return;
-        }
-
         if (_currentGameObject == hit.transform.gameObject)
         {
             return;
@@ -69,6 +69,32 @@ public class PlayerInteractScript : MonoBehaviour
         _currentInteractScript = GetInteractScript(_currentGameObject);
         
         _currentInteractScript.SetCanvasActive(true);
+    }
+
+    private void UpdateInput()
+    {
+        if (_interactAction.WasPressedThisFrame() && (_currentGameObject || _currentHoldObject))
+        {
+            if (_currentHoldObject)
+            {
+                _currentHoldObject.transform.parent = transform.parent;
+                
+                _currentHoldObject = null;
+            }
+            else
+            {
+                if (!_currentGameObject)
+                {
+                    throw new Exception("Invalid state");
+                }
+                
+                _currentGameObject.transform.parent = transform;
+                _currentGameObject.transform.localPosition = _currentInteractScript.GetHoldPosition();
+                _currentGameObject.transform.localRotation = _currentInteractScript.GetHoldRotation();
+                
+                _currentHoldObject = _currentGameObject;
+            }
+        }
     }
 
     private ObjectInteractScript GetInteractScript(GameObject target)
