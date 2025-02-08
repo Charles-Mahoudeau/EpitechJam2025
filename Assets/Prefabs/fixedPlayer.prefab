@@ -293,9 +293,10 @@ MonoBehaviour:
   moveSpeed: 7
   jumpForce: 12
   jumpCooldown: 0.25
-  airFriction: 0.4
+  airFriction: 0.3
   playerHeight: 1.75
   flatGravityValue: 25
+  friction: 4
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8

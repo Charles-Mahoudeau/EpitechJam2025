@@ -9,7 +9,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float airFriction = 0.2f;
     [SerializeField] private float playerHeight = 2f;
     [SerializeField] private float flatGravityValue = 25f;
-    private float _gravityForce = 5f;
+    [SerializeField] private float friction = 5f;
     [SerializeField] private LayerMask groundLayerMask;
     
     private bool _readyToJump;
@@ -64,7 +64,7 @@ public class PlayerMovementScript : MonoBehaviour
         var horizontalInput = Input.GetAxisRaw("Horizontal");
         var verticalInput = Input.GetAxisRaw("Vertical");
         
-        _rb.linearDamping = _isGrounded ? _gravityForce : 0;
+        _rb.linearDamping = _isGrounded ? friction : 0;
         _acceleration = _isGrounded ? 1 : airFriction; 
         if(Input.GetButton("Jump") && _readyToJump && _isGrounded)
         {
