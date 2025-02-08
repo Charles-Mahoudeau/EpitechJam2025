@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - ShyWall
+  - groundToDelete
   - PlayerBody
+  - Paintable
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Water
   - UI
   - ShyWall
-  - 
+  - Interactable
   - 
   - 
   - 
