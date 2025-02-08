@@ -460,11 +460,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6162828058124468943, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
       propertyPath: moveSpeed
-      value: 700
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6162828058124468943, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
       propertyPath: airFriction
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162828058124468943, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
+      propertyPath: sensitivity
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -542,7 +546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 99416321521259859, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 99416321521259859, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -575,10 +579,6 @@ PrefabInstance:
     - target: {fileID: 99416321521259859, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2364322069857626537, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
-      propertyPath: player
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6123019899779868893, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_Name
