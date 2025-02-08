@@ -149,8 +149,16 @@ public class LampScript : MonoBehaviour
 
     private void DrawShadowGizmos()
     {
+        var hasTargetHit = Physics.Raycast(transform.position, transform.forward, out var targetHit,
+            raysDistance);
+        
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * raysDistance);
+
+        if (hasTargetHit)
+        {
+            Gizmos.DrawLine(transform.position, targetHit.point);
+        }
+        
         foreach (var vert in _shadowVertices)
         {
             Gizmos.DrawSphere(vert, 0.1f);
