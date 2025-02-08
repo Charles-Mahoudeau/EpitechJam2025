@@ -11,7 +11,7 @@ namespace ChangeScene
 
         private void Start()
         {
-            player = GameObject.FindWithTag("PlayerBody");
+            player = GameObject.FindWithTag("Player");
             DontDestroyOnLoad(player);
         }
         private void OnTriggerEnter(Collider other)
