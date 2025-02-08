@@ -5,9 +5,14 @@ public class StartElevatorMovement : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     public Component elevator;
-    public Component player;
+    public GameObject player;
     public Vector3 speed;
-    
+
+    private void Start()
+    {
+        player = GameObject.FindWithTag("PlayerBody");
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (animator.GetBool("IsOpen") == false && other.CompareTag("Player"))

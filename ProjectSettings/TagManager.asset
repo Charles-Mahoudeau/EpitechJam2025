@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - ShyWall
+  - PlayerBody
   layers:
   - Default
   - TransparentFX
