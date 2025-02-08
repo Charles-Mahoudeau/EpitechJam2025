@@ -27,14 +27,6 @@ public class PlayerMovementScript : MonoBehaviour
     
     private bool _isGrounded;
 
-    [Header("Ground deletion")]
-    [SerializeField] private string groundTag;
-
-    private Component _groundRb;
-
-    private GameObject _ground;
-
-    private Vector3 _lookingOrientation;
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -44,16 +36,10 @@ public class PlayerMovementScript : MonoBehaviour
         _readyToJump = true;
         
         _camera = transform.Find("Camera").gameObject;
-        if (groundTag == null)
-            groundTag = "groundToDelete";
         if (!_camera)
         {
             Debug.LogWarning("Camera not found");
         }
-        _ground = GameObject.FindWithTag(groundTag);
-        if (!_ground)
-            Debug.LogWarning("No ground with tag " + groundTag);
-        _groundRb = _ground.GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -64,8 +50,6 @@ public class PlayerMovementScript : MonoBehaviour
         
         UpdateCamera();
         MovePlayer();
-        if (_ground)
-            HandleGroundDeletion();
     }
 
     private void MovePlayer()
@@ -119,15 +103,5 @@ public class PlayerMovementScript : MonoBehaviour
         
         Gizmos.color = _isGrounded ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * playerHeight);
-    }
-
-    private void HandleGroundDeletion()
-    {
-        _lookingOrientation = _camera.transform.localRotation.eulerAngles;
-        
-        if (_lookingOrientation.x is <= 300f and >= 270f)
-        {
-            Destroy(_ground);
-        }
     }
 }
