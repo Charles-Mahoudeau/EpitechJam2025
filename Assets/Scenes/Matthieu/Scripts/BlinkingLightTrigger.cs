@@ -16,7 +16,6 @@ public class BlinkingLightTrigger : MonoBehaviour
         if (targetLight != null)
             targetLight.enabled = false;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (!hasBeenTriggered && other.CompareTag("Player"))
@@ -28,19 +27,15 @@ public class BlinkingLightTrigger : MonoBehaviour
 
     private IEnumerator ActivateAndBlinkLight()
     {
-        // Initial activation
         targetLight.enabled = true;
         yield return new WaitForSeconds(initialDelay);
 
-        // Blinking sequence
         for (int i = 0; i < numberOfBlinks; i++)
         {
-            Debug.Log("HI");
+            Debug.Log("HI");    
             targetLight.enabled = !targetLight.enabled;
             yield return new WaitForSeconds(blinkInterval);
         }
-
-        // Ensure light stays on after blinking
         targetLight.enabled = true;
     }
 }
