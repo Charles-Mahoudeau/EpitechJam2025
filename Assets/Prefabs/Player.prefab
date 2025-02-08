@@ -295,7 +295,7 @@ MonoBehaviour:
   friction: 2
   airFriction: 1.9
   playerHeight: 1.75
-  gravityForce: 50
+  gravityForce: -200
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
