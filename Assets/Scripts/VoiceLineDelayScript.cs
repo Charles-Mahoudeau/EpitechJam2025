@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class VoicelineDelayScript : MonoBehaviour
+public class VoiceLineDelayScript : MonoBehaviour
 {
     [SerializeField] private float delay;
     
