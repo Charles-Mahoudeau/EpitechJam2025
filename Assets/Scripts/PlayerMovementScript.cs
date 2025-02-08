@@ -4,11 +4,13 @@ using UnityEngine.Tilemaps;
 public class PlayerMovementScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
+    private float _acceleration;
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float friction = 1.0f;
     [SerializeField] private float airFriction = 0.2f;
     [SerializeField] private float playerHeight = 2f;
+    [SerializeField] private float gravityForce = 200f;
     [SerializeField] private LayerMask groundLayerMask;
     
     private bool _readyToJump;
@@ -25,14 +27,6 @@ public class PlayerMovementScript : MonoBehaviour
     
     private bool _isGrounded;
 
-    [Header("Ground deletion")]
-    [SerializeField] private string groundTag;
-
-    private Component _groundRb;
-
-    private GameObject _ground;
-
-    private Vector3 _lookingOrientation;
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -42,46 +36,41 @@ public class PlayerMovementScript : MonoBehaviour
         _readyToJump = true;
         
         _camera = transform.Find("Camera").gameObject;
-        if (groundTag == null)
-            groundTag = "groundToDelete";
         if (!_camera)
         {
             Debug.LogWarning("Camera not found");
         }
-        _ground = GameObject.FindWithTag(groundTag);
-        if (!_ground)
-            Debug.LogWarning("No ground with tag " + groundTag);
-        _groundRb = _ground.GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight);
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, groundLayerMask);
         
         UpdateCamera();
         MovePlayer();
-        if (_ground)
-            HandleGroundDeletion();
     }
 
     private void MovePlayer()
     {
         var horizontalInput = Input.GetAxisRaw("Horizontal");
         var verticalInput = Input.GetAxisRaw("Vertical");
-
-        _rb.linearDamping = _isGrounded ? friction : airFriction;
         
+        _rb.linearDamping = _isGrounded ? friction : airFriction; 
         if(Input.GetButton("Jump") && _readyToJump && _isGrounded)
         {
             _readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-        
+        if (_rb.linearVelocity.y <= 0 && !_isGrounded)
+        {
+            var increaseYForce = new Vector3(0f, gravityForce, 0f);
+            _rb.AddForce(increaseYForce * (Time.deltaTime), ForceMode.Force);
+        }
         var moveDirection = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
-        _rb.AddForce(moveDirection * (moveSpeed * Time.deltaTime), ForceMode.Force);
+        _rb.AddForce(moveDirection * (Time.deltaTime * moveSpeed), ForceMode.Force);
     }
 
     private void Jump()
@@ -114,15 +103,5 @@ public class PlayerMovementScript : MonoBehaviour
         
         Gizmos.color = _isGrounded ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * playerHeight);
-    }
-
-    private void HandleGroundDeletion()
-    {
-        _lookingOrientation = _camera.transform.localRotation.eulerAngles;
-        
-        if (_lookingOrientation.x is <= 300f and >= 270f)
-        {
-            Destroy(_ground);
-        }
     }
 }
