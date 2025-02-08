@@ -10,7 +10,7 @@ public class StartElevatorMovement : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("PlayerBody");
+        player = GameObject.FindWithTag("Player");
     }
 
     private void OnTriggerStay(Collider other)
