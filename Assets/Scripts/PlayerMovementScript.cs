@@ -4,11 +4,13 @@ using UnityEngine.Tilemaps;
 public class PlayerMovementScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
+    private float _acceleration;
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float friction = 1.0f;
     [SerializeField] private float airFriction = 0.2f;
     [SerializeField] private float playerHeight = 2f;
+    [SerializeField] private float gravityForce = 200f;
     [SerializeField] private LayerMask groundLayerMask;
     
     private bool _readyToJump;
@@ -58,7 +60,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Update()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight);
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, groundLayerMask);
         
         UpdateCamera();
         MovePlayer();
@@ -70,18 +72,21 @@ public class PlayerMovementScript : MonoBehaviour
     {
         var horizontalInput = Input.GetAxisRaw("Horizontal");
         var verticalInput = Input.GetAxisRaw("Vertical");
-
-        _rb.linearDamping = _isGrounded ? friction : airFriction;
         
+        _rb.linearDamping = _isGrounded ? friction : airFriction; 
         if(Input.GetButton("Jump") && _readyToJump && _isGrounded)
         {
             _readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-        
+        if (_rb.linearVelocity.y <= 0 && !_isGrounded)
+        {
+            var increaseYForce = new Vector3(0f, gravityForce, 0f);
+            _rb.AddForce(increaseYForce * (Time.deltaTime), ForceMode.Force);
+        }
         var moveDirection = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
-        _rb.AddForce(moveDirection * (moveSpeed * Time.deltaTime), ForceMode.Force);
+        _rb.AddForce(moveDirection * (Time.deltaTime * moveSpeed), ForceMode.Force);
     }
 
     private void Jump()
