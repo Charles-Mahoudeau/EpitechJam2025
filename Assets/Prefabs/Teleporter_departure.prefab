@@ -396,7 +396,7 @@ Transform:
   m_GameObject: {fileID: 918406929710992734}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 0, y: 12.8, z: 0}
   m_LocalScale: {x: 6.0064573, y: 2.353123, z: 6.0960894}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -415,8 +415,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newScene: SampleScene
-  teleportDestination: {x: 0, y: -13.5, z: 12.64}
-  player: {fileID: 0}
+  teleportDestination: {x: 0, y: -13.5, z: 13}
+  player: {fileID: 7404416252867331211, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
 --- !u!33 &8971342095128626477
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1278,8 +1278,8 @@ Transform:
   m_GameObject: {fileID: 4607410334860875882}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 4.49}
-  m_LocalScale: {x: 4.2048206, y: 0.8620544, z: 4.757876}
+  m_LocalPosition: {x: 0, y: 0.51, z: 3.61}
+  m_LocalScale: {x: 4.2048206, y: 0.8620544, z: 2.9679155}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 99416321521259859}
