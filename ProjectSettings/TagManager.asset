@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ShyWall
   - groundToDelete
+  - PlayerBody
+  - Paintable
   layers:
   - Default
   - TransparentFX
