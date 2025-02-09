@@ -2852,7 +2852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d84b8901c541f4fa97818fae01cc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 5
+  delay: 27
   speed: 2
 --- !u!1001 &278230044
 PrefabInstance:
@@ -3726,8 +3726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4079e6b4a6fd644fb3b496727654668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newScene: MatthieuScene
-  teleportDestination: {x: 0, y: -13.5, z: 13}
+  newScene: SasScene
+  teleportDestination: {x: -9.5, y: -12.3, z: -14}
   player: {fileID: 7404416252867331211, guid: c18e7217b60fdca4d992cbc479aa321e, type: 3}
 --- !u!1 &352347937
 GameObject:
@@ -6508,8 +6508,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3d47052cc7a50864bbef0bad0250fda0, type: 3}
-  m_Resource: {fileID: 8300000, guid: 3d47052cc7a50864bbef0bad0250fda0, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e74a129a65aa5b44face10437e0b55de, type: 3}
+  m_Resource: {fileID: 8300000, guid: e74a129a65aa5b44face10437e0b55de, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6555,7 +6555,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.773
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6610,6 +6610,19 @@ MonoBehaviour:
   clip: {fileID: 675425628}
   isPlayedOnce: 1
   playOnlyAtExit: 0
+--- !u!114 &675425635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675425627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3907a11f8ff890846b7e7fc7dc1930f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 1765342276}
 --- !u!1001 &680178470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18140,6 +18153,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4897907329318998587, guid: 11c1ceab64d328f499fdf5af8e1d998d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 675425628}
+    - targetCorrespondingSourceObject: {fileID: 4897907329318998587, guid: 11c1ceab64d328f499fdf5af8e1d998d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 675425635}
   m_SourcePrefab: {fileID: 100100000, guid: 11c1ceab64d328f499fdf5af8e1d998d, type: 3}
 --- !u!1 &1836486148
 GameObject:
