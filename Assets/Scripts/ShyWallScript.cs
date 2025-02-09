@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ShyWallScript : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class ShyWallScript : MonoBehaviour
         {
             throw new Exception("Camera not found");
         }
-        
+
+        _renderer.shadowCastingMode = ShadowCastingMode.Off;
         SetVisible(true);
     }
 
