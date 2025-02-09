@@ -7,7 +7,7 @@ public class Painter : MonoBehaviour, IEquippable
    
     public Color paintColor = Color.red;
     public int brushSize = 5;
-    private bool isEquipped = false;
+    public bool isEquipped = false;
 
     private Dictionary<GameObject, Texture2D> textureCopies = new Dictionary<GameObject, Texture2D>();
     public void Equip()
@@ -24,7 +24,8 @@ public class Painter : MonoBehaviour, IEquippable
 
     void Update()
     {
-        if (!isEquipped) return;
+        if (!isEquipped)
+            return;
 
         if (Input.GetMouseButton(0))
         {
