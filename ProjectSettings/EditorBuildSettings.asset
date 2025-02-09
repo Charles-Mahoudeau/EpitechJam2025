@@ -14,11 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scene.unity
     guid: d003dd266beecc849a9eaeeac894fccd
-    path: Assets/Scenes/DevScenes/EstebanScene.unity
-    guid: acd761b78fcc7384fab8b996b9c9addb
   - enabled: 1
     path: Assets/Scenes/DevScenes/CharlesScene.unity
     guid: 6351584a2fb10e143bd0aa1d3eec1001
+  - enabled: 1
+    path: Assets/Scenes/DevScenes/MatthieuScene.unity
+    guid: 188436ba752417244a9931e02f322c57
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
