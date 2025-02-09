@@ -50,6 +50,11 @@ public class PauseScript : MonoBehaviour
 
     public void MainMenu()
     {
+        if (_paused)
+        {
+            TogglePause();
+        }
+        
         SceneManager.LoadScene("MainMenuScene");
     }
 }
