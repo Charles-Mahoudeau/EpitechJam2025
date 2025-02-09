@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -47,6 +46,7 @@ public class LampScript : MonoBehaviour
         _shadow = GameObject.CreatePrimitive(PrimitiveType.Quad);
         _shadow.name = "LampShadow";
         _shadow.AddComponent<BoxCollider>();
+        _shadow.layer = LayerMask.NameToLayer("Ground");
 
         _shadowRenderer = _shadow.GetComponent<MeshRenderer>();
         _shadowCollider = _shadow.GetComponent<BoxCollider>();

@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ShyWallScript : MonoBehaviour
 {
     private MeshRenderer _renderer;
     private BoxCollider _collider;
     private Camera _camera;
+    [SerializeField] private bool displayShadow = false;
     
     private void Start()
     {
@@ -18,7 +20,9 @@ public class ShyWallScript : MonoBehaviour
         {
             throw new Exception("Camera not found");
         }
-        
+
+        if (!displayShadow)
+            _renderer.shadowCastingMode = ShadowCastingMode.Off;
         SetVisible(true);
     }
 
