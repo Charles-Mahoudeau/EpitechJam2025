@@ -7,7 +7,8 @@ public class LampScript : MonoBehaviour, IEquippable
     [SerializeField] private uint raysCount = 100;
     [SerializeField] private float raysDistance = 50f;
     [SerializeField] private float distanceShadowHeightFactor = 1.0f;
-    [SerializeField] private Material shadowMaterial;
+    
+    private Material _shadowMaterial;
     
     private bool _shadowActive;
     private Vector3[] _shadowVertices;
@@ -39,11 +40,7 @@ public class LampScript : MonoBehaviour, IEquippable
 
     private void Start()
     {
-        if (!shadowMaterial)
-        {
-            Debug.LogWarning("No shadow material assigned, using standard shader material.");
-            shadowMaterial = new Material(Shader.Find("Standard"));
-        }
+        _shadowMaterial = Resources.Load<Material>("ShadowMaterial");
         
         _shadow = GameObject.CreatePrimitive(PrimitiveType.Quad);
         _shadow.name = "LampShadow";
@@ -55,7 +52,7 @@ public class LampScript : MonoBehaviour, IEquippable
         
         _shadowRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         _shadowRenderer.receiveShadows = false;
-        _shadowRenderer.material = shadowMaterial;
+        _shadowRenderer.material = _shadowMaterial;
         
         var center = _shadowCollider.center;
         center.z += 0.1f;
@@ -75,12 +72,14 @@ public class LampScript : MonoBehaviour, IEquippable
 
     private float GetShadowWidth(Collider colliderFilter)
     {
+        var forwardDir = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * Vector3.forward;
+        var rightDir = Quaternion.Euler(0.0f, 90.0f, 0.0f) * forwardDir;
         var hitsCount = 0;
         
         for (float i = - (int) (raysCount / 2); i < (int) (raysCount / 2); i++)
         {
-            var origin = transform.position + transform.right * (i * precision);
-            var hasHit = Physics.Raycast(origin, transform.forward, out var hit, raysDistance,
+            var origin = transform.position + rightDir * (i * precision);
+            var hasHit = Physics.Raycast(origin, forwardDir, out var hit, raysDistance,
                 LayerMask.GetMask("ShadowWall"));
 
             if (!hasHit || hit.collider != colliderFilter)
@@ -98,9 +97,11 @@ public class LampScript : MonoBehaviour, IEquippable
 
     private void UpdateShadow()
     {
-        var hasTargetHit = Physics.Raycast(transform.position, transform.forward, out var targetHit,
+        var forwardDir = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * Vector3.forward;
+        var rightDir = Quaternion.Euler(0.0f, 90.0f, 0.0f) * forwardDir;
+        var hasTargetHit = Physics.Raycast(transform.position, forwardDir, out var targetHit,
             raysDistance, LayerMask.GetMask("ShadowWall"));
-        var hasGroundHit = Physics.Raycast(transform.position, - transform.up, out var groundHit, 
+        var hasGroundHit = Physics.Raycast(transform.position, - Vector3.up, out var groundHit, 
             raysDistance, LayerMask.GetMask("Ground"));
 
         _shadowActive = hasTargetHit && hasGroundHit;
@@ -120,10 +121,10 @@ public class LampScript : MonoBehaviour, IEquippable
 
         _shadowVertices = new []
         {
-            Vector3LockY(shadowStart - transform.right * (shadowWidth * 0.5f), groundY),
-            Vector3LockY(shadowStart + transform.right * (shadowWidth * 0.5f), groundY),
-            Vector3LockY(shadowEnd - transform.right * (shadowWidth * 0.5f), groundY),
-            Vector3LockY(shadowEnd + transform.right * (shadowWidth * 0.5f), groundY)
+            Vector3LockY(shadowStart - rightDir * (shadowWidth * 0.5f), groundY),
+            Vector3LockY(shadowStart + rightDir * (shadowWidth * 0.5f), groundY),
+            Vector3LockY(shadowEnd - rightDir * (shadowWidth * 0.5f), groundY),
+            Vector3LockY(shadowEnd + rightDir * (shadowWidth * 0.5f), groundY)
         };
     }
 
@@ -154,6 +155,8 @@ public class LampScript : MonoBehaviour, IEquippable
     {
         var hasTargetHit = Physics.Raycast(transform.position, transform.forward, out var targetHit,
             raysDistance, LayerMask.GetMask("ShadowWall"));
+        var forwardDir = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * Vector3.forward;
+        var rightDir = Quaternion.Euler(0.0f, 90.0f, 0.0f) * forwardDir;
         
         Gizmos.color = Color.green;
 
@@ -166,6 +169,20 @@ public class LampScript : MonoBehaviour, IEquippable
         {
             Gizmos.DrawSphere(vert, 0.1f);
         }
+        
+        for (float i = - (int) (raysCount / 2); i < (int) (raysCount / 2); i++)
+        {
+            var origin = transform.position + rightDir * (i * precision);
+            var hasHit = Physics.Raycast(origin, forwardDir, out var hit, raysDistance,
+                LayerMask.GetMask("ShadowWall"));
+            
+            Gizmos.color = hasHit ? Color.green : Color.red;
+            Gizmos.DrawLine(origin, origin + forwardDir * raysDistance);
+        }
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + forwardDir * raysDistance);
+        Gizmos.DrawLine(transform.position, transform.position - Vector3.up * raysDistance);
     }
 
     public void Unequip()
@@ -180,3 +197,4 @@ public class LampScript : MonoBehaviour, IEquippable
     
     }
 }
+

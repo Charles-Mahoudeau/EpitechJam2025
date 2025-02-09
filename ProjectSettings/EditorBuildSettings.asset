@@ -8,18 +8,30 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
+  - enabled: 0
+    path: Assets/Scenes/DevScenes/Thomas/Main Menu.unity
     guid: 4ddcd754a64fa4541a059cda5a92f66f
-  - enabled: 1
-    path: Assets/Scenes/Game Scene.unity
+  - enabled: 0
+    path: Assets/Scenes/DevScenes/Thomas/Game Scene.unity
     guid: d003dd266beecc849a9eaeeac894fccd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DevScenes/CharlesScene.unity
     guid: 6351584a2fb10e143bd0aa1d3eec1001
+  - enabled: 0
+    path: Assets/Scenes/DevScenes/AlexisScene.unity
+    guid: 2ba2d7ed029b7c24689d19e56bf2414a
+  - enabled: 0
+    path: Assets/Scenes/DevScenes/DimitriScene.unity
+    guid: 3cf9c7b4549fa034095a0b874ec7e408
   - enabled: 1
-    path: Assets/Scenes/DevScenes/MatthieuScene.unity
-    guid: 188436ba752417244a9931e02f322c57
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: 374e8a50829c954468c0b8dffb37b68d
+  - enabled: 1
+    path: Assets/Scenes/SasScene.unity
+    guid: a9019e239eefc54479a30c90ba3c466d
+  - enabled: 1
+    path: Assets/Scenes/Level0.unity
+    guid: f143a29292ade704aa166060cf65b964
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public void PlayGame() {
-        SceneManager.LoadScene("Game Scene");
+        SceneManager.LoadScene("Level0");
     }
 
     public void ExitGame() {
