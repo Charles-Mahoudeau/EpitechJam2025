@@ -22,6 +22,7 @@ public class Painter : MonoBehaviour, IEquippable
     
     }
 
+
     void Update()
     {
         if (!isEquipped)
@@ -29,18 +30,24 @@ public class Painter : MonoBehaviour, IEquippable
 
         if (Input.GetMouseButton(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (!isEquipped)
+                return;
+
+            if (Input.GetMouseButton(0))
             {
-                if (hit.collider.CompareTag("Paintable"))
+                float maxDistance = 3f;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+                if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
                 {
-                    Debug.Log("Paintin' away: " + hit.collider.name);
-                    PaintSurface(hit.textureCoord, hit.collider.gameObject);
+                    if (hit.collider.CompareTag("Paintable"))
+                    {
+                        Debug.Log("Paintin' away: " + hit.collider.name);
+                        PaintSurface(hit.textureCoord, hit.collider.gameObject);
+                    }
                 }
             }
         }
-    }
 
     void PaintSurface(Vector2 uv, GameObject surface)
     {
