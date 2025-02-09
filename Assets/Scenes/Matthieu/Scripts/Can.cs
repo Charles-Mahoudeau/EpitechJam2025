@@ -24,7 +24,8 @@ public class Painter : MonoBehaviour, IEquippable
 
     void Update()
     {
-        if (!isEquipped) return;
+        if (!isEquipped)
+            return;
 
         if (Input.GetMouseButton(0))
         {

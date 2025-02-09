@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class LampScript : MonoBehaviour
+public class LampScript : MonoBehaviour, IEquippable
 {
     [SerializeField] private float precision = 0.1f;
     [SerializeField] private uint raysCount = 100;
@@ -16,6 +16,8 @@ public class LampScript : MonoBehaviour
     private GameObject _shadow;
     private MeshRenderer _shadowRenderer;
     private BoxCollider _shadowCollider;
+
+    private bool isEquipped = false;
     
     private static Vector3 GetVectors3Center(params Vector3[] vectors)
     {
@@ -182,4 +184,17 @@ public class LampScript : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + forwardDir * raysDistance);
         Gizmos.DrawLine(transform.position, transform.position - Vector3.up * raysDistance);
     }
+
+    public void Unequip()
+    {
+        isEquipped = false;
+    
+    }
+
+    public void Equip()
+    {
+        isEquipped = true;
+    
+    }
 }
+
