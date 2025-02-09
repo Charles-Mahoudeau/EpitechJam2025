@@ -75,11 +75,19 @@ public class PlayerInteractScript : MonoBehaviour
     {
         if (_interactAction.WasPressedThisFrame() && (_currentGameObject || _currentHoldObject))
         {
+            var inventory = GetComponent<PlayerInventory>();
+
             if (_currentHoldObject)
             {
                 _currentHoldObject.transform.parent = transform.parent;
                 
-                _currentHoldObject = null;
+
+            if (inventory != null)
+            {
+                inventory.RemoveEquippedItem(_currentHoldObject);
+            }
+
+            _currentHoldObject = null;
             }
             else
             {
@@ -93,6 +101,15 @@ public class PlayerInteractScript : MonoBehaviour
                 _currentGameObject.transform.localRotation = _currentInteractScript.GetHoldRotation();
                 
                 _currentHoldObject = _currentGameObject;
+                
+                if (inventory != null)
+                {
+                    inventory.AddEquippedItem(_currentGameObject);
+                    int newIndex = inventory.items.Count - 1;
+                    inventory.UnequipItem(inventory.currentItemIndex);
+                    inventory.currentItemIndex = newIndex;
+                    inventory.EquipItem(newIndex);
+                }
             }
         }
     }

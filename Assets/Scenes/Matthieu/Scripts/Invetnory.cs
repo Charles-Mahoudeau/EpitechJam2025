@@ -31,7 +31,16 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    void EquipItem(int index)
+    public void AddEquippedItem(GameObject item)
+    {
+        if (!items.Contains(item))
+        {
+            items.Add(item);
+            item.SetActive(false);
+        }
+    }
+
+    public void EquipItem(int index)
     {
         items[index].SetActive(true);
         IEquippable equippable = items[index].GetComponent<IEquippable>();
@@ -39,11 +48,19 @@ public class PlayerInventory : MonoBehaviour
             equippable.Equip();
     }
 
-    void UnequipItem(int index)
+    public void UnequipItem(int index)
     {
         items[index].SetActive(false);
         IEquippable equippable = items[index].GetComponent<IEquippable>();
         if (equippable != null)
             equippable.Unequip();
+    }
+
+    public void RemoveEquippedItem(GameObject item)
+    {
+        if (items.Contains(item))
+        {
+            items.Remove(item);
+        }
     }
 }
