@@ -27,6 +27,8 @@ public class Painter : MonoBehaviour, IEquippable
         if (!isEquipped)
             return;
 
+        Debug.Log("Okay btich");
+
         if (Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

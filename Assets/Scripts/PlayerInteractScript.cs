@@ -67,6 +67,8 @@ public class PlayerInteractScript : MonoBehaviour
         
         _currentGameObject = hit.transform.gameObject;
         _currentInteractScript = GetInteractScript(_currentGameObject);
+
+        Debug.Log("Object: " + _currentGameObject.name);
         
         _currentInteractScript.SetCanvasActive(true);
     }
