@@ -50,7 +50,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void UnequipItem(int index)
     {
-        items[index].SetActive(false);
+        //items[index].SetActive(false);
         IEquippable equippable = items[index].GetComponent<IEquippable>();
         if (equippable != null)
             equippable.Unequip();

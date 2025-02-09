@@ -84,6 +84,7 @@ public class PlayerInteractScript : MonoBehaviour
 
             if (inventory != null)
             {
+                inventory.UnequipItem(inventory.currentItemIndex);
                 inventory.RemoveEquippedItem(_currentHoldObject);
             }
 
