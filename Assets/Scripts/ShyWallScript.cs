@@ -7,6 +7,7 @@ public class ShyWallScript : MonoBehaviour
     private MeshRenderer _renderer;
     private BoxCollider _collider;
     private Camera _camera;
+    [SerializeField] private bool displayShadow = false;
     
     private void Start()
     {
@@ -20,7 +21,8 @@ public class ShyWallScript : MonoBehaviour
             throw new Exception("Camera not found");
         }
 
-        _renderer.shadowCastingMode = ShadowCastingMode.Off;
+        if (!displayShadow)
+            _renderer.shadowCastingMode = ShadowCastingMode.Off;
         SetVisible(true);
     }
 
