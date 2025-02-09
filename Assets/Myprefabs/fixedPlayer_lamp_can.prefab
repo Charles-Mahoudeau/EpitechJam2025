@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 2697185860192700228}
   - component: {fileID: 7394332605292802508}
   - component: {fileID: 3893518479480683471}
+  - component: {fileID: 400908087975904414}
   m_Layer: 0
   m_Name: fixedPlayer_lamp_can
   m_TagString: Player
@@ -329,3 +330,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items: []
   currentItemIndex: 0
+--- !u!114 &400908087975904414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7341235042671994775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389194a808ce6d84e81d00bfdc69f393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathSound: {fileID: 8300000, guid: 7919f666a54f89144824f3a5f7263015, type: 3}
+  respawnDelay: 3
+  redFilter: {fileID: 0}
