@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -51,6 +50,11 @@ public class PauseScript : MonoBehaviour
 
     public void MainMenu()
     {
+        if (_paused)
+        {
+            TogglePause();
+        }
+        
         SceneManager.LoadScene("MainMenuScene");
     }
 }
