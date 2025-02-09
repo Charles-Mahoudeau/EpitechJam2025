@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661fb89e3ac0de94c87906372857e21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  precision: 0.1
+  precision: 0.5
   raysCount: 100
   raysDistance: 50
-  distanceShadowHeightFactor: 1
-  shadowMaterial: {fileID: 0}
+  distanceShadowHeightFactor: 10
+  shadowMaterial: {fileID: 2100000, guid: c8e7ce4c35dbe6c44a9e02c7f4bf74db, type: 2}
 --- !u!114 &1409238702015349269
 MonoBehaviour:
   m_ObjectHideFlags: 0
