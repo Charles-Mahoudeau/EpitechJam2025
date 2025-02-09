@@ -4752,6 +4752,22 @@ PrefabInstance:
       propertyPath: newScene
       value: Level2
       objectReference: {fileID: 0}
+    - target: {fileID: 3705853571473848766, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
+      propertyPath: movePlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3705853571473848766, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
+      propertyPath: teleportDestination.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3705853571473848766, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
+      propertyPath: teleportDestination.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3705853571473848766, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
+      propertyPath: teleportDestination.z
+      value: -7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6123019899779868893, guid: 1ee0961ba385ed544b2a9b5d99ebd95f, type: 3}
       propertyPath: m_Name
       value: Teleporter_departure

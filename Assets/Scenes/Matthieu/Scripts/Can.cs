@@ -48,6 +48,7 @@ public class Painter : MonoBehaviour, IEquippable
                 }
             }
         }
+    }
 
     void PaintSurface(Vector2 uv, GameObject surface)
     {
