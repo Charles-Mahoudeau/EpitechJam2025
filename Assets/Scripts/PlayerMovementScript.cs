@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -7,10 +6,10 @@ public class PlayerMovementScript : MonoBehaviour
     private float _acceleration;
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpCooldown;
-    [SerializeField] private float friction = 1.0f;
     [SerializeField] private float airFriction = 0.2f;
     [SerializeField] private float playerHeight = 2f;
-    [SerializeField] private float gravityForce = 200f;
+    [SerializeField] private float flatGravityValue = 25f;
+    [SerializeField] private float friction = 5f;
     [SerializeField] private LayerMask groundLayerMask;
     
     private bool _readyToJump;
@@ -29,6 +28,9 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Start()
     {
+
+        Physics.gravity = new Vector3(0f, -flatGravityValue, 0f);
+        
         _rb = GetComponent<Rigidbody>();
         
         _rb.freezeRotation = true;
@@ -49,7 +51,12 @@ public class PlayerMovementScript : MonoBehaviour
         _isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, groundLayerMask);
         
         UpdateCamera();
+    }
+
+    private void FixedUpdate()
+    {
         MovePlayer();
+        LimitSpeed();
     }
 
     private void MovePlayer()
@@ -57,25 +64,22 @@ public class PlayerMovementScript : MonoBehaviour
         var horizontalInput = Input.GetAxisRaw("Horizontal");
         var verticalInput = Input.GetAxisRaw("Vertical");
         
-        _rb.linearDamping = _isGrounded ? friction : airFriction; 
+        _rb.linearDamping = _isGrounded ? friction : 0;
+        _acceleration = _isGrounded ? 1 : airFriction; 
         if(Input.GetButton("Jump") && _readyToJump && _isGrounded)
         {
             _readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-        if (_rb.linearVelocity.y <= 0 && !_isGrounded)
-        {
-            var increaseYForce = new Vector3(0f, gravityForce, 0f);
-            _rb.AddForce(increaseYForce * (Time.deltaTime), ForceMode.Force);
-        }
         var moveDirection = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
-        _rb.AddForce(moveDirection * (Time.deltaTime * moveSpeed), ForceMode.Force);
+        _rb.AddForce(moveDirection * (moveSpeed * 10f * _acceleration), ForceMode.Force);
     }
 
     private void Jump()
     {
         _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
+        
         _rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     
@@ -103,5 +107,16 @@ public class PlayerMovementScript : MonoBehaviour
         
         Gizmos.color = _isGrounded ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * playerHeight);
+    }
+
+    private void LimitSpeed()
+    {
+        Vector3 speed = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
+
+        if (speed.magnitude > moveSpeed)
+        {
+            Vector3 limitedSpeed = speed.normalized * moveSpeed;
+            _rb.linearVelocity = new Vector3(limitedSpeed.x, _rb.linearVelocity.y, limitedSpeed.z);
+        }
     }
 }
