@@ -1,14 +1,15 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class Painter : MonoBehaviour, IEquippable
 {
     [Tooltip("How much the pixel color moves toward the target per second (in 0-1 range).")]
-    [SerializeField] private float strength = 0.5f;  // Adjust this to control the speed of color change.
+    [SerializeField] private float strength = 0.5f;  
    
     public Color paintColor = Color.red;
     public int brushSize = 5;
     private bool isEquipped = false;
 
+    private Dictionary<GameObject, Texture2D> textureCopies = new Dictionary<GameObject, Texture2D>();
     public void Equip()
     {
         isEquipped = true;
@@ -43,15 +44,15 @@ public class Painter : MonoBehaviour, IEquippable
     void PaintSurface(Vector2 uv, GameObject surface)
     {
         Renderer renderer = surface.GetComponent<Renderer>();
-        
-        if (renderer.material.name.StartsWith("Instance"))
+
+        if (textureCopies.TryGetValue(surface, out Texture2D existingTexture))
         {
-        
-            Texture2D existingTexture = renderer.material.mainTexture as Texture2D;
+            // Paint on existing texture
             PaintOnTexture(uv, existingTexture);
         }
         else
         {
+            // Copy the original texture
             Texture2D originalTexture = renderer.material.mainTexture as Texture2D;
             Texture2D copiedTexture = new Texture2D(
                 originalTexture.width,
@@ -61,46 +62,39 @@ public class Painter : MonoBehaviour, IEquippable
             );
             copiedTexture.SetPixels(originalTexture.GetPixels());
             copiedTexture.Apply();
-        
+
+            // Assign the copied texture to a new material
             Material materialInstance = new Material(renderer.material);
-            materialInstance.name = "Instance_" + renderer.material.name;
             materialInstance.mainTexture = copiedTexture;
             renderer.material = materialInstance;
+
+            // Track the copied texture
+            textureCopies.Add(surface, copiedTexture);
 
             PaintOnTexture(uv, copiedTexture);
         }
     }
-
     void PaintOnTexture(Vector2 uv, Texture2D texture)
     {
-        // Convert UV coordinates (0-1) to pixel coordinates.
+         Debug.Log("Paintin texture: " + texture.name);
         int centerX = (int)(uv.x * texture.width);
         int centerY = (int)(uv.y * texture.height);
-        
-        // If you want the change to be frame-rate independent, compute a step based on Time.deltaTime.
-        // (Assumes this function is called every frame while painting.)
-        float step = strength * Time.deltaTime;
-        // If you prefer a fixed increment per paint action (ignoring frame rate), simply use:
-        // float step = strength;
 
-        // Loop over the square region around the brush center.
+        float step = strength * Time.deltaTime;
+
         for (int i = -brushSize; i <= brushSize; i++)
         {
             for (int j = -brushSize; j <= brushSize; j++)
             {
-                // Only update pixels that fall within the circular brush area.
+                
                 if (i * i + j * j <= brushSize * brushSize)
                 {
                     int x = centerX + i;
                     int y = centerY + j;
-
-                    // Check that the pixel is within texture bounds.
                     if (x >= 0 && x < texture.width && y >= 0 && y < texture.height)
                     {
-                        // Get the current color of the pixel.
                         Color currentColor = texture.GetPixel(x, y);
 
-                        // Gradually move each channel toward the target color.
                         float newR = Mathf.MoveTowards(currentColor.r, paintColor.r, step);
                         float newG = Mathf.MoveTowards(currentColor.g, paintColor.g, step);
                         float newB = Mathf.MoveTowards(currentColor.b, paintColor.b, step);
@@ -112,8 +106,6 @@ public class Painter : MonoBehaviour, IEquippable
                 }
             }
         }
-
-        // Apply the changes to the texture.
         texture.Apply();
     }
 }
