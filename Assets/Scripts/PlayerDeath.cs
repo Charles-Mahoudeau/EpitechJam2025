@@ -1,10 +1,31 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDeath : MonoBehaviour
 {
+    public AudioClip deathSound;
+    public float respawnDelay = 3.0f;
+    public Image redFilter;
+    private AudioSource audioSource;
+    private PlayerMovementScript playerMovementScript;
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        playerMovementScript = GetComponent<PlayerMovementScript>();
+        if (redFilter != null)
+        {
+            redFilter.enabled = false;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "FloorDieLvl2")
+        if (collision.transform.parent != null && collision.transform.parent.name == "FloorDie")
         {
             Die();
         }
@@ -12,8 +33,32 @@ public class PlayerDeath : MonoBehaviour
 
     private void Die()
     {
-        // Logique pour tuer le joueur, par exemple :
-        Debug.Log("Player has died.");
-        // Vous pouvez ajouter ici la logique pour réinitialiser le niveau, afficher un écran de game over, etc.
+        if (deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+        if (redFilter != null)
+        {
+            redFilter.enabled = true;
+        }
+        if (playerMovementScript != null)
+        {
+            playerMovementScript.enabled = false;
+        }
+        Invoke("Respawn", deathSound != null ? deathSound.length : respawnDelay);
+    }
+
+    private void Respawn()
+    {
+        transform.position = new Vector3(0, 1.7f, 0);
+
+        if (redFilter != null)
+        {
+            redFilter.enabled = false;
+        }
+        if (playerMovementScript != null)
+        {
+            playerMovementScript.enabled = true;
+        }
     }
 }
