@@ -7,7 +7,8 @@ public class LampScript : MonoBehaviour
     [SerializeField] private uint raysCount = 100;
     [SerializeField] private float raysDistance = 50f;
     [SerializeField] private float distanceShadowHeightFactor = 1.0f;
-    [SerializeField] private Material shadowMaterial;
+    
+    private Material _shadowMaterial;
     
     private bool _shadowActive;
     private Vector3[] _shadowVertices;
@@ -37,11 +38,7 @@ public class LampScript : MonoBehaviour
 
     private void Start()
     {
-        if (!shadowMaterial)
-        {
-            Debug.LogWarning("No shadow material assigned, using standard shader material.");
-            shadowMaterial = new Material(Shader.Find("Standard"));
-        }
+        _shadowMaterial = Resources.Load<Material>("ShadowMaterial");
         
         _shadow = GameObject.CreatePrimitive(PrimitiveType.Quad);
         _shadow.name = "LampShadow";
@@ -53,7 +50,7 @@ public class LampScript : MonoBehaviour
         
         _shadowRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         _shadowRenderer.receiveShadows = false;
-        _shadowRenderer.material = shadowMaterial;
+        _shadowRenderer.material = _shadowMaterial;
         
         var center = _shadowCollider.center;
         center.z += 0.1f;
