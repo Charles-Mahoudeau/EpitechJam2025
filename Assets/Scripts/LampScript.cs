@@ -73,12 +73,14 @@ public class LampScript : MonoBehaviour
 
     private float GetShadowWidth(Collider colliderFilter)
     {
+        var forwardDir = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * Vector3.forward;
+        var rightDir = Quaternion.Euler(0.0f, 90.0f, 0.0f) * forwardDir;
         var hitsCount = 0;
         
         for (float i = - (int) (raysCount / 2); i < (int) (raysCount / 2); i++)
         {
-            var origin = transform.position + transform.right * (i * precision);
-            var hasHit = Physics.Raycast(origin, transform.forward, out var hit, raysDistance,
+            var origin = transform.position + rightDir * (i * precision);
+            var hasHit = Physics.Raycast(origin, forwardDir, out var hit, raysDistance,
                 LayerMask.GetMask("ShadowWall"));
 
             if (!hasHit || hit.collider != colliderFilter)
@@ -96,9 +98,11 @@ public class LampScript : MonoBehaviour
 
     private void UpdateShadow()
     {
-        var hasTargetHit = Physics.Raycast(transform.position, transform.forward, out var targetHit,
+        var forwardDir = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * Vector3.forward;
+        var rightDir = Quaternion.Euler(0.0f, 90.0f, 0.0f) * forwardDir;
+        var hasTargetHit = Physics.Raycast(transform.position, forwardDir, out var targetHit,
             raysDistance, LayerMask.GetMask("ShadowWall"));
-        var hasGroundHit = Physics.Raycast(transform.position, - transform.up, out var groundHit, 
+        var hasGroundHit = Physics.Raycast(transform.position, - Vector3.up, out var groundHit, 
             raysDistance, LayerMask.GetMask("Ground"));
 
         _shadowActive = hasTargetHit && hasGroundHit;
@@ -118,10 +122,10 @@ public class LampScript : MonoBehaviour
 
         _shadowVertices = new []
         {
-            Vector3LockY(shadowStart - transform.right * (shadowWidth * 0.5f), groundY),
-            Vector3LockY(shadowStart + transform.right * (shadowWidth * 0.5f), groundY),
-            Vector3LockY(shadowEnd - transform.right * (shadowWidth * 0.5f), groundY),
-            Vector3LockY(shadowEnd + transform.right * (shadowWidth * 0.5f), groundY)
+            Vector3LockY(shadowStart - rightDir * (shadowWidth * 0.5f), groundY),
+            Vector3LockY(shadowStart + rightDir * (shadowWidth * 0.5f), groundY),
+            Vector3LockY(shadowEnd - rightDir * (shadowWidth * 0.5f), groundY),
+            Vector3LockY(shadowEnd + rightDir * (shadowWidth * 0.5f), groundY)
         };
     }
 
@@ -152,6 +156,8 @@ public class LampScript : MonoBehaviour
     {
         var hasTargetHit = Physics.Raycast(transform.position, transform.forward, out var targetHit,
             raysDistance, LayerMask.GetMask("ShadowWall"));
+        var forwardDir = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * Vector3.forward;
+        var rightDir = Quaternion.Euler(0.0f, 90.0f, 0.0f) * forwardDir;
         
         Gizmos.color = Color.green;
 
@@ -164,5 +170,19 @@ public class LampScript : MonoBehaviour
         {
             Gizmos.DrawSphere(vert, 0.1f);
         }
+        
+        for (float i = - (int) (raysCount / 2); i < (int) (raysCount / 2); i++)
+        {
+            var origin = transform.position + rightDir * (i * precision);
+            var hasHit = Physics.Raycast(origin, forwardDir, out var hit, raysDistance,
+                LayerMask.GetMask("ShadowWall"));
+            
+            Gizmos.color = hasHit ? Color.green : Color.red;
+            Gizmos.DrawLine(origin, origin + forwardDir * raysDistance);
+        }
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + forwardDir * raysDistance);
+        Gizmos.DrawLine(transform.position, transform.position - Vector3.up * raysDistance);
     }
 }
