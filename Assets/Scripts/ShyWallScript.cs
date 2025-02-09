@@ -7,7 +7,9 @@ public class ShyWallScript : MonoBehaviour
     private MeshRenderer _renderer;
     private BoxCollider _collider;
     private Camera _camera;
-    [SerializeField] private bool displayShadow = false;
+
+    [SerializeField] private bool zPlusMode;
+    [SerializeField] private bool displayShadow;
     
     private void Start()
     {
@@ -22,7 +24,10 @@ public class ShyWallScript : MonoBehaviour
         }
 
         if (!displayShadow)
+        {
             _renderer.shadowCastingMode = ShadowCastingMode.Off;
+        }
+        
         SetVisible(true);
     }
 
@@ -32,15 +37,27 @@ public class ShyWallScript : MonoBehaviour
         var playerAngle = Vector3.SignedAngle(transform.forward, directionToPlayer, Vector3.up);
         var angle = Vector3.SignedAngle(transform.forward, _camera.transform.forward, Vector3.up);
 
-        Debug.Log(angle);
-        
-        if (playerAngle < 0)
+        if (zPlusMode)
         {
-            SetVisible(angle is <= 45 or >= 135);
+            if (playerAngle is >= -90.0f and <= 90.0f)
+            {
+                SetVisible(angle is <= 135.0f and >= -135.0f);
+            }
+            else
+            {
+                SetVisible(angle is <= -45.0f or >= 45.0f);
+            }
         }
         else
         {
-            SetVisible(angle is <= -135 or >= -45);
+            if (playerAngle < 0)
+            {
+                SetVisible(angle is <= 45 or >= 135);
+            }
+            else
+            {
+                SetVisible(angle is <= -135 or >= -45);
+            }
         }
     }
 
